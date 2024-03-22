@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import 'animate.css';
 
 
@@ -8,6 +8,10 @@ const [name,setName]=useState("Hablu");
 const [email,setEmail]=useState("Hablu@gmail.com");
 const [password,setPassword]=useState("");
 const [error,setError]=useState('');
+const nameRef=useRef(null);
+useEffect(()=>{
+nameRef.current.focus();
+},[])
 
 // console.log(name,email,password);
 const handleSubmit=e=>{
@@ -42,26 +46,28 @@ const handlePasswordChange=e=>{
         <div>
             <form onSubmit={handleSubmit}>
                 <input
+                ref={nameRef}
                 value={name}
                 onChange={handleNameChange}
-                className="w-full outline-dotted" type="text" name="name" />
+                className="w-full outline" type="text" name="name" />
                 <br />
                 <br />
                 <input 
                 value={email}
                 onChange={handleEmailChange}
-                className="w-full outline-dashed" type="email" name="email" required />
+                className="w-full outline" type="email" name="email" required />
                 <br />
                 <br />
                 <input type="password"
                 value={password}
                 onChange={handlePasswordChange}
-                className="w-full outline-dashed" name="password" required />
+                className="w-full outline" name="password" required />
                 <button className="btn btn-primary mt-5 ">submit</button>;
                 {
-                    error && <p className=" animate__animated animate__backInUp text-3xl font-bold text-red-500">{error}</p>
+                    error && <p className=" animate__animated animate__backInUp md:text-3xl font-bold text-red-500">{error}</p>
                 }
             </form>
+         
         </div>
     );
 };
